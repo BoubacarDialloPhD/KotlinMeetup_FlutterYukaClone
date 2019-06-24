@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "874762458511",
+    "firebase_url": "https://yuka-3efb8.firebaseio.com",
+    "project_id": "yuka-3efb8",
+    "storage_bucket": "yuka-3efb8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:874762458511:android:af2e6fcb763686eb",
+        "android_client_info": {
+          "package_name": "fr.g123k.yuka_clone"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "874762458511-2d038vd68abirqo5tar3lkoilv8o3l0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQGfcGxaojJU-cIpM9LkNI3TwSnpE5THc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "874762458511-2d038vd68abirqo5tar3lkoilv8o3l0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
