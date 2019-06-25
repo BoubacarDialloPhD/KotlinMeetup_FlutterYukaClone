@@ -1,3 +1,4 @@
+import 'package:yuka_clone/utils/list_utils.dart';
 import 'package:yuka_clone/utils/object_utils.dart';
 
 class Product {
@@ -24,14 +25,18 @@ class Product {
         barcode = api['barcode'],
         picture = api['picture'],
         quantity = api['quantity'],
-        brands = List<String>.from(api['brands']),
-        manufacturingCountries =
-            List<String>.from(api['manufacturingCountries']),
+        brands =
+            ListUtils.toListFromObject(api['brands'], (item) => item as String),
+        manufacturingCountries = ListUtils.toListFromObject(
+            api['manufacturingCountries'], (item) => item as String),
         nutriScore = api['nutriScore'],
         novaScore = api['novaScore'],
-        ingredients = List<String>.from(api['ingredients']),
-        traces = List<String>.from(api['traces']),
-        allergens = List<String>.from(api['allergens']),
+        ingredients = ListUtils.toListFromObject(
+            api['ingredients'], (item) => item as String),
+        traces =
+            ListUtils.toListFromObject(api['traces'], (item) => item as String),
+        allergens = ListUtils.toListFromObject(
+            api['allergens'], (item) => item as String),
         additives = Map.castFrom(api['additives']),
         nutritionFacts = NutritionFacts.fromAPI(api['nutritionFacts']),
         nutrientLevels = NutrientLevels.fromAPI(api['nutrientLevels']),

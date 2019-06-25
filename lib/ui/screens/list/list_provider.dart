@@ -20,10 +20,15 @@ class ProductsListProviders {
   }
 
   Future<Product> findProduct(String barcode) async {
-    var api =
-        await _channel.invokeMethod('getProduct', {'barcode': '5000159484695'});
+    try {
+      var api = await _channel.invokeMethod('getProduct', {'barcode': barcode});
 
-    return Product.fromAPI(json.decode(api));
+      return Product.fromAPI(json.decode(api));
+    } catch (err, trace) {
+      print(err);
+      print(trace);
+      return null;
+    }
   }
 
   Stream<ProductsListEvent> get productsListStream => _controller.stream;

@@ -12,6 +12,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   @override
   void initState() {
     super.initState();
+
     _init();
   }
 
@@ -35,16 +36,33 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   @override
   void dispose() {
     controller?.dispose();
+
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     if (controller == null || !controller.value.isInitialized) {
-      return new Container();
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      var mediaQuery = MediaQuery.of(context);
+      var screenSize = mediaQuery.size;
+      var padding = mediaQuery.padding;
+      var previewSize = controller.value.previewSize;
+      var aspectRatio = (screenSize.height - padding.top - padding.bottom) /
+          previewSize.height;
+
+      var height = screenSize.height * aspectRatio;
+
+      return Center(
+        child: Transform.scale(
+          scale: screenSize.height / height,
+          child: SizedBox(
+            height: height,
+            child: QRReaderPreview(controller),
+          ),
+        ),
+      );
     }
-    return new AspectRatio(
-        aspectRatio: controller.value.aspectRatio,
-        child: new QRReaderPreview(controller));
   }
 }

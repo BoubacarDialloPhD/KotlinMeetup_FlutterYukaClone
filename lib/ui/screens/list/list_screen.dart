@@ -43,9 +43,46 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
       MaterialPageRoute(builder: (context) => BarcodeScannerScreen()),
     );
 
-    if (barcode != null) {
+    if (barcode is String && barcode.isNotEmpty) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => AlertDialog(
+                title: const Text('Chargement en cours'),
+                content: Row(children: const <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(width: 15.0),
+                  Expanded(
+                      child: Text('Merci de patienter quelques secondes...'))
+                ]),
+              ));
+
       var product = await _providers.findProduct(barcode);
-      openProductDetails(product);
+
+      // Remove the dialog
+      Navigator.pop(context);
+
+      if (product != null) {
+        openProductDetails(product);
+
+        // Reload the list with the new product
+        _providers.fetchProducts();
+      } else {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+                  title: Text('Une erreur est survenue'),
+                  content: Text(
+                      'Impossible de trouver les détails pour le produit dont le code-barres est \"$barcode\".'),
+                  actions: <Widget>[
+                    FlatButton(
+                        child: Text('OK'),
+                        onPressed: () {
+                          Navigator.of(context).maybePop();
+                        })
+                  ],
+                ));
+      }
     }
   }
 
@@ -167,64 +204,70 @@ class _ProductListScreenListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+        clipBehavior: Clip.antiAlias,
         child: InkWell(
-      onTap: () {
-        Provider.of<_ProductsListScreenState>(context)
-            .openProductDetails(product);
-      },
-      child: Column(children: <Widget>[
-        Image.network(
-          product.picture,
-          height: 295,
-          fit: BoxFit.cover,
-        ),
-        Padding(
-          padding: const EdgeInsetsDirectional.only(
-              start: 12.0, end: 12.0, top: 16.0, bottom: 12.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(product.name,
-                  style: const TextStyle(
-                      fontSize: 18.0, fontWeight: FontWeight.bold)),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 5.0),
-                child: Text(product.brands.join(', ') ?? '',
-                    style: const TextStyle(
-                        fontSize: 15.0, fontWeight: FontWeight.w500)),
+          onTap: () {
+            Provider.of<_ProductsListScreenState>(context)
+                .openProductDetails(product);
+          },
+          child: Column(children: <Widget>[
+            Hero(
+              tag: 'img',
+              child: Image.network(
+                product.picture,
+                height: 295,
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 10.0),
-              DefaultTextStyle(
-                style:
-                    DefaultTextStyle.of(context).style.copyWith(fontSize: 14.0),
-                child: Row(
-                  children: <Widget>[
-                    Flexible(
-                        child: Row(
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.only(
+                  start: 12.0, end: 12.0, top: 16.0, bottom: 12.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(product.name,
+                      style: const TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold)),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0, bottom: 5.0),
+                    child: Text(product.brands.join(', ') ?? '',
+                        style: const TextStyle(
+                            fontSize: 15.0, fontWeight: FontWeight.w500)),
+                  ),
+                  const SizedBox(height: 10.0),
+                  DefaultTextStyle(
+                    style: DefaultTextStyle.of(context)
+                        .style
+                        .copyWith(fontSize: 14.0),
+                    child: Row(
                       children: <Widget>[
-                        Icon(AppIcons.calories),
-                        const SizedBox(width: 5.0),
-                        Text('Nutriscore : ${product.nutriScore.toUpperCase()}')
+                        Flexible(
+                            child: Row(
+                          children: <Widget>[
+                            Icon(AppIcons.calories),
+                            const SizedBox(width: 5.0),
+                            Text(
+                                'Nutriscore : ${product.nutriScore.toUpperCase()}')
+                          ],
+                        )),
+                        if (product.nutritionFacts.calories != null)
+                          Flexible(
+                              child: Row(
+                            children: <Widget>[
+                              Icon(AppIcons.leaderboard),
+                              const SizedBox(width: 5.0),
+                              Text(
+                                  'Nutriscore : ${product.nutritionFacts.calories}')
+                            ],
+                          )),
                       ],
-                    )),
-                    if (product.nutritionFacts.calories != null)
-                      Flexible(
-                          child: Row(
-                        children: <Widget>[
-                          Icon(AppIcons.leaderboard),
-                          const SizedBox(width: 5.0),
-                          Text(
-                              'Nutriscore : ${product.nutritionFacts.calories}')
-                        ],
-                      )),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ]),
-    ));
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ]),
+        ));
   }
 }

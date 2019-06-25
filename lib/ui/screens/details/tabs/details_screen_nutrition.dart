@@ -114,6 +114,7 @@ class _ProductDetailsNutritionItem extends StatelessWidget {
           Expanded(
               child: Text(
                   '${item.quantity} ${item.unit} de ${item.label}\n${_extractQuantity()}',
+                  textAlign: TextAlign.justify,
                   style: const TextStyle(height: 1.2)))
         ],
       ),

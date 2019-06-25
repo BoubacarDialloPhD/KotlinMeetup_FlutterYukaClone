@@ -12,11 +12,14 @@ class ProductDetailsSummary extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
-          Image.network(
-            product.picture,
-            width: double.infinity,
-            height: 290.0,
-            fit: BoxFit.cover,
+          Hero(
+            tag: 'img',
+            child: Image.network(
+              product.picture,
+              width: double.infinity,
+              height: 290.0,
+              fit: BoxFit.cover,
+            ),
           ),
           Padding(
             padding:
@@ -112,6 +115,7 @@ class _ProductDetailsSummaryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RichText(
+      textAlign: TextAlign.justify,
       text: TextSpan(children: [
         TextSpan(
             text: '$title : ',
