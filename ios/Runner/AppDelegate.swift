@@ -1,5 +1,6 @@
 import UIKit
 import Flutter
+import OpenFoodFactsMpp
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
@@ -8,7 +9,7 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
-    OFFMAppFlutterIOSKt.configureStandardCodecMessageChannel(self)
+    AppFlutterIOSKt.configureStandardCodecMessageChannel(self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

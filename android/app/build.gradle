@@ -64,7 +64,7 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.meetup.kotlin.paris:OpenFoodFactsMpp-android:1.2.1'
+    implementation 'com.meetup.kotlin.paris:OpenFoodFactsMpp-android:1.3.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.2'

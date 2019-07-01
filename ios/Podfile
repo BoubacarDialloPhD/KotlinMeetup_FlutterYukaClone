@@ -1,5 +1,5 @@
 # Uncomment this line to define a global platform for your project
-# platform :ios, '9.0'
+platform :ios, '9.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -35,12 +35,13 @@ end
 target 'Runner' do
   use_frameworks!
 
-  pod 'OpenFoodFactsMpp', :git => 'https://github.com/SalomonBrys/OFF-Demo-MPP.git', :tag => '1.2.0'
-
   # Prepare symlinks folder. We use symlinks to avoid having Podfile.lock
   # referring to absolute paths on developers' machines.
   system('rm -rf .symlinks')
   system('mkdir -p .symlinks/plugins')
+  
+  pod 'OpenFoodFactsMpp-debug', :podspec => 'https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/1.3.0/OpenFoodFactsMpp-ios-framework-1.3.0-debug.podspec', :configurations => ['Debug']
+  pod 'OpenFoodFactsMpp-release', :podspec => 'https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/1.3.0/OpenFoodFactsMpp-ios-framework-1.3.0-release.podspec', :configurations => ['Release', 'Profile']
 
   # Flutter Pods
   generated_xcode_build_settings = parse_KV_file('./Flutter/Generated.xcconfig')
