@@ -39,9 +39,10 @@ target 'Runner' do
   # referring to absolute paths on developers' machines.
   system('rm -rf .symlinks')
   system('mkdir -p .symlinks/plugins')
-  
-  pod 'OpenFoodFactsMpp-debug', :podspec => 'https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/1.4.1/OpenFoodFactsMpp-ios-framework-1.4.1-debug.podspec', :configurations => ['Debug']
-  pod 'OpenFoodFactsMpp-release', :podspec => 'https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/1.4.1/OpenFoodFactsMpp-ios-framework-1.4.1-release.podspec', :configurations => ['Release', 'Profile']
+
+  offVersion = "1.4.2"
+  pod 'OpenFoodFactsMpp-debug', :podspec => "https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/#{offVersion}/OpenFoodFactsMpp-ios-framework-#{offVersion}-debug.podspec", :configurations => ['Debug']
+  pod 'OpenFoodFactsMpp-release', :podspec => "https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/#{offVersion}/OpenFoodFactsMpp-ios-framework-#{offVersion}-release.podspec", :configurations => ['Release', 'Profile']
 
   # Flutter Pods
   generated_xcode_build_settings = parse_KV_file('./Flutter/Generated.xcconfig')
