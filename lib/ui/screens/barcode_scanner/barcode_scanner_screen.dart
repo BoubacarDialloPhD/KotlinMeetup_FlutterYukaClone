@@ -19,18 +19,39 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
   void _init() async {
     var cameras = await availableCameras();
 
-    controller = new QRReaderController(
-        cameras[0], ResolutionPreset.medium, [CodeFormat.ean13],
-        (dynamic value) {
-      Navigator.pop(context, value);
-    });
-    controller.initialize().then((_) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {});
-      controller.startScanning();
-    });
+    if (cameras.length == 0) {
+      showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+                title: Text('Une erreur est survenue'),
+                content:
+                    Text('Aucune caméra n\'est accessible sur le téléphone.'),
+                actions: <Widget>[
+                  FlatButton(
+                      child: Text('OK'),
+                      onPressed: () {
+                        var navigator = Navigator.of(context);
+                        // Close the dialog
+                        navigator.maybePop();
+                        // Close the screen
+                        navigator.maybePop();
+                      })
+                ],
+              ));
+    } else {
+      controller = new QRReaderController(
+          cameras[0], ResolutionPreset.medium, [CodeFormat.ean13],
+          (dynamic value) {
+        Navigator.pop(context, value);
+      });
+      controller.initialize().then((_) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {});
+        controller.startScanning();
+      });
+    }
   }
 
   @override

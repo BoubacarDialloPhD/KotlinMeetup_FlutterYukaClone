@@ -13,9 +13,9 @@ class ProductDetailsSummary extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Hero(
-            tag: 'img',
+            tag: product.barcode,
             child: Image.network(
-              product.picture,
+              product.picture ?? '',
               width: double.infinity,
               height: 290.0,
               fit: BoxFit.cover,
@@ -32,7 +32,7 @@ class ProductDetailsSummary extends StatelessWidget {
                 _ProductDetailsSummaryItem(
                     title: 'Code-barres', value: product.barcode),
                 _ProductDetailsSummaryItem(
-                    title: 'Quantité', value: product.quantity),
+                    title: 'Quantité', value: product.quantity ?? '-'),
                 _ProductDetailsSummaryItem(
                     title: 'Vendu en',
                     value: product.manufacturingCountries?.join(', ')),
@@ -48,7 +48,8 @@ class ProductDetailsSummary extends StatelessWidget {
                 const SizedBox(height: 15.0),
                 _ProductDetailsSummaryItem(
                   title: 'Additifs',
-                  value: _printableAdditives(product.additives).join(', '),
+                  value:
+                      _printableAdditives(product.additives)?.join(', ') ?? '-',
                   emptyValue: 'Aucun',
                 ),
               ],
@@ -60,6 +61,10 @@ class ProductDetailsSummary extends StatelessWidget {
   }
 
   List<String> _printableAdditives(Map<String, String> additives) {
+    if (additives == null) {
+      return null;
+    }
+
     List<String> list = [];
 
     if (additives != null) {
@@ -91,7 +96,7 @@ class _ProductDetailsSummaryTitleRow extends StatelessWidget {
                         fontWeight: FontWeight.w500, fontSize: 18.0)),
                 const SizedBox(height: 5.0),
                 Text(
-                  product.brands.join(', '),
+                  product.brands?.join(', ') ?? '-',
                   style: const TextStyle(fontStyle: FontStyle.italic),
                 ),
               ]),

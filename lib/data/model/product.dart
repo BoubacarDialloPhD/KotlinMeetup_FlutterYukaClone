@@ -37,7 +37,8 @@ class Product {
             ListUtils.toListFromObject(api['traces'], (item) => item as String),
         allergens = ListUtils.toListFromObject(
             api['allergens'], (item) => item as String),
-        additives = Map.castFrom(api['additives']),
+        additives =
+            api['additives'] != null ? Map.castFrom(api['additives']) : null,
         nutritionFacts = NutritionFacts.fromAPI(api['nutritionFacts']),
         nutrientLevels = NutrientLevels.fromAPI(api['nutrientLevels']),
         ingredientsFromPalmOil = api['containsPalmOil'];

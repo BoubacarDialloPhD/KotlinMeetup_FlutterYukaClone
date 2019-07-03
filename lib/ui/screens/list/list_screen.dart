@@ -212,9 +212,9 @@ class _ProductListScreenListItem extends StatelessWidget {
           },
           child: Column(children: <Widget>[
             Hero(
-              tag: 'img',
+              tag: product.barcode,
               child: Image.network(
-                product.picture,
+                product.picture ?? '-',
                 height: 295,
                 fit: BoxFit.cover,
               ),
@@ -231,7 +231,7 @@ class _ProductListScreenListItem extends StatelessWidget {
                           fontSize: 18.0, fontWeight: FontWeight.bold)),
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0, bottom: 5.0),
-                    child: Text(product.brands.join(', ') ?? '',
+                    child: Text(product.brands?.join(', ') ?? '',
                         style: const TextStyle(
                             fontSize: 15.0, fontWeight: FontWeight.w500)),
                   ),
