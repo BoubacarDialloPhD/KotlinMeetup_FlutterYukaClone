@@ -248,7 +248,7 @@ class _ProductListScreenListItem extends StatelessWidget {
                             Icon(AppIcons.calories),
                             const SizedBox(width: 5.0),
                             Text(
-                                'Nutriscore : ${product.nutriScore.toUpperCase()}')
+                                'Nutriscore : ${product.nutriScore?.toUpperCase() ?? 'Non renseigné'}')
                           ],
                         )),
                         if (product.nutritionFacts.calories != null)

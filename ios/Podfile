@@ -40,7 +40,7 @@ target 'Runner' do
   system('rm -rf .symlinks')
   system('mkdir -p .symlinks/plugins')
 
-  offVersion = "1.4.2"
+  offVersion = "1.4.3"
   pod 'OpenFoodFactsMpp-debug', :podspec => "https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/#{offVersion}/OpenFoodFactsMpp-ios-framework-#{offVersion}-debug.podspec", :configurations => ['Debug']
   pod 'OpenFoodFactsMpp-release', :podspec => "https://dl.bintray.com/salomonbrys/kotlin-paris-meetup/com/meetup/kotlin/paris/OpenFoodFactsMpp-ios-framework/#{offVersion}/OpenFoodFactsMpp-ios-framework-#{offVersion}-release.podspec", :configurations => ['Release', 'Profile']
 

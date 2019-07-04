@@ -36,16 +36,16 @@ class ProductDetailsSummary extends StatelessWidget {
                 _ProductDetailsSummaryItem(
                     title: 'Vendu en',
                     value: product.manufacturingCountries?.join(', ')),
-                const SizedBox(height: 20.0),
+                const SizedBox(height: 25.0),
                 _ProductDetailsSummaryItem(
                     title: 'Ingrédients',
                     value: product.ingredients?.join(', ')),
-                const SizedBox(height: 15.0),
+                const SizedBox(height: 20.0),
                 _ProductDetailsSummaryItem(
                     title: 'Substances allergènes',
                     value: product.allergens?.join(', '),
                     emptyValue: 'Aucune'),
-                const SizedBox(height: 15.0),
+                const SizedBox(height: 20.0),
                 _ProductDetailsSummaryItem(
                   title: 'Additifs',
                   value:
@@ -101,9 +101,10 @@ class _ProductDetailsSummaryTitleRow extends StatelessWidget {
                 ),
               ]),
         ),
-        Image.asset(
-            'res/drawables/nutriscore_${product.nutriScore.toLowerCase()}.png',
-            width: 78.0)
+        if (product.nutriScore != null)
+          Image.asset(
+              'res/drawables/nutriscore_${product.nutriScore.toLowerCase()}.png',
+              width: 78.0)
       ],
     );
   }
