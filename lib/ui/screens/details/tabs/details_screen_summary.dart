@@ -111,22 +111,53 @@ class _ProductDetailsSummaryTitleRow extends StatelessWidget {
 
 class _ProductDetailsSummaryItem extends StatelessWidget {
   final String title;
-  final String value;
-  final String emptyValue;
+  final List<StylableText> text;
 
   _ProductDetailsSummaryItem(
-      {@required this.title, @required this.value, this.emptyValue});
+      {@required this.title, @required String value, String emptyValue})
+      : text = _generateText(value, emptyValue);
+
+  static List<StylableText> _generateText(String value, String emptyValue) {
+    if (value == null || value.isEmpty) {
+      return [StylableText(false, emptyValue)];
+    }
+
+    var list = value.split('_');
+    if (list.length == 1) {
+      return [StylableText(false, value)];
+    } else {
+      var listValue = List<StylableText>();
+      for (var i = 0; i != list.length; i++) {
+        listValue.add(StylableText(i % 2 == 1, list[i]));
+      }
+      return listValue;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    var defaultFontWeight = DefaultTextStyle.of(context).style.fontWeight;
+
     return RichText(
       textAlign: TextAlign.justify,
       text: TextSpan(children: [
         TextSpan(
             text: '$title : ',
-            style: const TextStyle(fontWeight: FontWeight.w500)),
-        TextSpan(text: value ?? (emptyValue ?? '-')),
-      ], style: DefaultTextStyle.of(context).style.copyWith(height: 1.2)),
+            style: const TextStyle(fontWeight: FontWeight.bold)),
+        ...text.map((item) {
+          return TextSpan(
+              text: item.text,
+              style: TextStyle(
+                  fontWeight: item.bold ? FontWeight.bold : defaultFontWeight));
+        }).toList(growable: false),
+      ], style: DefaultTextStyle.of(context).style.copyWith(height: 1.4)),
     );
   }
+}
+
+class StylableText {
+  final bool bold;
+  final String text;
+
+  StylableText(this.bold, this.text);
 }
