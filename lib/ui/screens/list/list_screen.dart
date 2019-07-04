@@ -40,7 +40,7 @@ class _ProductsListScreenState extends State<ProductsListScreen> {
   void openBarcodeScanner() async {
     var barcode = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => BarcodeScannerScreen()),
+      MaterialPageRoute(builder: (context) => const BarcodeScannerScreen()),
     );
 
     if (barcode is String && barcode.isNotEmpty) {
@@ -258,7 +258,7 @@ class _ProductListScreenListItem extends StatelessWidget {
                               Icon(AppIcons.leaderboard),
                               const SizedBox(width: 5.0),
                               Text(
-                                  'Nutriscore : ${product.nutritionFacts.calories}')
+                                  '${product.nutritionFacts.calories} kcal/part')
                             ],
                           )),
                       ],

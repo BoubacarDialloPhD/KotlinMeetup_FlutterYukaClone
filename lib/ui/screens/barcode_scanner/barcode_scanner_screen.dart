@@ -1,12 +1,26 @@
 import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
 import 'package:flutter/material.dart';
 
-class BarcodeScannerScreen extends StatefulWidget {
+class BarcodeScannerScreen extends StatelessWidget {
+  const BarcodeScannerScreen();
+
   @override
-  _BarcodeScannerScreenState createState() => new _BarcodeScannerScreenState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: BarcodeScannerScreenContent(),
+    );
+  }
 }
 
-class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
+class BarcodeScannerScreenContent extends StatefulWidget {
+  @override
+  _BarcodeScannerScreenContentState createState() =>
+      new _BarcodeScannerScreenContentState();
+}
+
+class _BarcodeScannerScreenContentState
+    extends State<BarcodeScannerScreenContent> {
   QRReaderController controller;
 
   @override
@@ -40,7 +54,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
               ));
     } else {
       controller = new QRReaderController(
-          cameras[0], ResolutionPreset.medium, [CodeFormat.ean13],
+          cameras[0], ResolutionPreset.high, [CodeFormat.ean13],
           (dynamic value) {
         Navigator.pop(context, value);
       });
@@ -49,6 +63,7 @@ class _BarcodeScannerScreenState extends State<BarcodeScannerScreen> {
           return;
         }
         setState(() {});
+
         controller.startScanning();
       });
     }
